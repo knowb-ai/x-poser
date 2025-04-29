@@ -2,16 +2,17 @@
 
 > “When they post propaganda, we post receipts.”
 
-XPosé is an open-source, real-time fact-checking and counter-narrative toolkit for monitoring specific accounts on Twitter/X, detecting disinformation or propaganda, and publicly replying with factual corrections powered by LLMs.
+XPosay is an open-source, real-time fact-checking and counter-narrative toolkit for monitoring specific accounts on Twitter/X, detecting disinformation or propaganda, and publicly replying with factual corrections powered by LLMs.
 
 This project is designed as a peaceful resistance tool — to expose falsehoods, amplify truth, and hold digital empires accountable.
 
 
 ## 📜 Philosophical Goals
-	•	Expose, don’t censor: We fight disinformation by shining a light on it, not by silencing it.
-	•	Whistleblower spirit: Truth is not neutral. False narratives must be publicly corrected, not merely “balanced.”
-	•	Automation with purpose: Technology should not amplify the powerful — it should empower the powerless.
-	•	Radical transparency: Receipts over rhetoric. Always cite, always verify.
+
+- Expose, don’t censor: We fight disinformation by shining a light on it, not by silencing it.
+- Whistleblower spirit: Truth is not neutral. False narratives must be publicly corrected, not merely “balanced.”
+- Automation with purpose: Technology should not amplify the powerful — it should empower the powerless.
+- Radical transparency: Receipts over rhetoric. Always cite, always verify.
 
 
 ## ⚡ Project Structure
@@ -33,11 +34,12 @@ Xposay/
 └── .env                       # Local environment variables (never commit)
 ```
 
+
 ## 🛠️ Installation and Setup
 
 ### 1.	Clone the repository:
-```
-git clone https://github.com/yourusername/XPose.git
+```bash
+git clone https://github.com/knowb-ai/XPosay.git
 cd XPosay
 ```
 
@@ -71,27 +73,28 @@ uvicorn app.main:app --reload
 This will start a FastAPI server and launch your monitoring system.
 
 ## ⚙️ How It Works
-	•	Monitoring: Watches specified Twitter/X accounts for new tweets.
-	•	Analysis: Uses an LLM (like GPT-4) to fact-check tweet content.
-	•	Replying: Posts an automated, concise, cited reply if necessary.
-	•	Retrieval (optional): Pulls from preloaded factual datasets to ground LLM responses.
+
+- Monitoring: Watches specified Twitter/X accounts for new tweets.
+- Analysis: Uses an LLM (like GPT-4) to fact-check tweet content.
+- Replying: Posts an automated, concise, cited reply if necessary.
+- Retrieval (optional): Pulls from preloaded factual datasets to ground LLM responses.
 
 ## 🚨 Important Warning and Disclaimer
 
 Use responsibly.
 
 XPosay is a toolkit. It is powerful enough to be used for:
-	•	Mass counter-propaganda efforts
-	•	Real-time rebuttal and fact-based disruption
-	•	Potentially overwhelming or “crippling” narrative control from malicious actors
+- Mass counter-propaganda efforts
+- Real-time rebuttal and fact-based disruption
+- Potentially overwhelming or “crippling” narrative control from malicious actors
 
 However, misuse of this tool — including violating Twitter/X Terms of Service (TOS), harassing individuals, or engaging in prohibited automated activity — can result in account suspension, legal action, or worse.
 
 We strongly advise:
-	•	Always label bot activity clearly (e.g., “Automated Fact-Checker” in your bio).
-	•	Always cite credible sources when fact-checking.
-	•	Do not target private individuals.
-	•	Review the Twitter Automation Rules and Platform Manipulation Policy.
+- Always label bot activity clearly (e.g., “Automated Fact-Checker” in your bio).
+- Always cite credible sources when fact-checking.
+- Do not target private individuals.
+- Review the Twitter Automation Rules and Platform Manipulation Policy.
 
 You are solely responsible for how you deploy this software. We provide XPosay for educational, ethical activism, and academic purposes only.
 
