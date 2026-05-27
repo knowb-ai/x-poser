@@ -3,3 +3,6 @@ tweepy
 openai
 python-dotenv
 uvicorn
+tavily-python
+jinja2
+httpx
