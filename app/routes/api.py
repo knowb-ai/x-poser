@@ -10,10 +10,10 @@ from fastapi.responses import JSONResponse
 from app.config import Config
 from app.schemas import CheckRequest, CheckResponse, ErrorResponse, HealthResponse
 from app.services.claim import extract_claim
-from app.services.tavily import search_evidence
-from app.services.rag import stitch_evidence
 from app.services.nebius import judge_claim
+from app.services.rag import stitch_evidence
 from app.services.report import assemble_report
+from app.services.tavily import search_evidence
 
 logger = logging.getLogger(__name__)
 
@@ -31,8 +31,7 @@ async def health() -> HealthResponse:
     )
 
 
-@router.post("/check", response_model=CheckResponse, responses={500: {"model": ErrorResponse}})
-async def check_claim(req: CheckRequest) -> CheckResponse | JSONResponse:
+async def _run_smoke_pipeline(req: CheckRequest) -> CheckResponse | JSONResponse:
     claim = extract_claim(req.claim_text)
 
     # --- Tavily search ---
@@ -76,3 +75,13 @@ async def check_claim(req: CheckRequest) -> CheckResponse | JSONResponse:
         tavily_sources=sources,
     )
     return report
+
+
+@router.post("/check", response_model=CheckResponse, responses={500: {"model": ErrorResponse}})
+async def check_claim(req: CheckRequest) -> CheckResponse | JSONResponse:
+    return await _run_smoke_pipeline(req)
+
+
+@router.post("/smoke", response_model=CheckResponse, responses={500: {"model": ErrorResponse}})
+async def smoke_check(req: CheckRequest) -> CheckResponse | JSONResponse:
+    return await _run_smoke_pipeline(req)

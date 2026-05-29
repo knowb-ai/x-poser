@@ -174,7 +174,7 @@ def build_recency_window(claim: str) -> tuple[str, str]:
     if any(token in lowered for token in ("this year", "last year", "past year")):
         return _window_ending_today(days=365, today=today)
 
-    return _window_ending_today(days=14, today=today)
+    return _window_ending_today(days=365, today=today)
 
 
 def _normalize_result(raw: dict[str, Any]) -> dict[str, Any]:
