@@ -1,90 +1,107 @@
 # Contributing to X-Poser Mini
 
-Thanks for your interest in contributing! X-Poser Mini is a small, focused project and we want to keep it that way.
+Thanks for your interest in contributing. X-Poser Mini is a small workshop/demo project for checking a claim from X against retrieved web evidence and rendering a compact report.
+
+The goal of this repo is to keep the smoke-test path clear, understandable, and easy to run locally.
 
 ## Development Setup
 
+1. Clone the repo.
+2. Create and activate a Python virtual environment.
+3. Install dependencies:
+
 ```bash
-git clone https://github.com/knowb-ai/X-Poser Mini.git
-cd X-Poser Mini
-uv sync
-uv run pytest           # tests
-uv run ruff check src/ tests/   # lint
-uv run ruff format src/ tests/  # format
+pip install -r requirements.txt
 ```
 
-Requires Python 3.11+.
+4. Configure environment variables from `.env.example`.
+5. Start the app:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+6. Open `http://127.0.0.1:8000`.
+
+Required environment variables:
+
+- `TAVILY_API_KEY`
+- `NEBIUS_API_KEY`
+- `NEBIUS_BASE_URL`
+
+Optional environment variables:
+
+- `NEBIUS_MODEL`
+- `APP_ENV`
 
 ## Pull Requests
 
-1. Fork the repo and create a branch from `main`
-2. Make your changes
-3. Ensure tests pass: `uv run pytest`
-4. Ensure lint passes: `uv run ruff check src/ tests/`
-5. Open a PR against `main`
+1. Create a branch from `main`.
+2. Keep the change small and focused.
+3. Update documentation when setup, environment variables, endpoints, or user-facing behavior changes.
+4. Run the app locally and test the changed path manually.
+5. Open a PR against `main` using the most relevant PR template.
 
-Keep PRs small and focused. One concern per PR.
+One concern per PR. Avoid bundling unrelated cleanup with feature or bug-fix work.
+
+## Project Scope
+
+This release is intentionally minimal:
+
+- Paste a claim from X.
+- Retrieve web evidence with Tavily.
+- Judge the claim with a Nebius-backed LLM through the OpenAI-compatible SDK.
+- Display a compact evidence-linked report.
+
+Out of scope for this repo right now:
+
+- Automatic monitoring or posting to X.
+- n8n workflow integration.
+- Production-scale scheduling, queues, persistence, or moderation workflows.
+
+If a proposed change expands the project beyond the smoke-test path, describe the tradeoff clearly in the PR.
 
 ## Code Style
 
-- We use [Ruff](https://docs.astral.sh/ruff/) for linting and formatting
-- Line length: 100
-- Target: Python 3.11
-- Every module has a docstring header describing purpose, interface, deps, and extension points
+- Prefer small, direct modules over broad abstractions.
+- Keep route handlers, service clients, schemas, and rendering concerns separated according to the existing `app/` layout.
+- Use explicit environment configuration through `app/config.py`.
+- Keep user-facing errors understandable and safe to display.
+- Avoid adding dependencies unless they are necessary for the demo path.
 
-## What We're Looking For
+## Verification
 
-- Bug fixes with a test that reproduces the issue
-- Documentation improvements
-- Framework integration adapters (see [issue tracker](https://github.com/knowb-ai/X-Poser Mini/issues))
+This repo does not currently define a formal test suite or lint command. Until that changes, contributors should at minimum:
 
-## Design Principles
+- Start the app with `uvicorn app.main:app --reload`.
+- Check `GET /api/health`.
+- Submit a representative claim through the UI.
+- Confirm the report includes a verdict, confidence, summary, evidence links, and share text.
+- Confirm missing API keys produce a clear health or runtime failure.
 
-X-Poser Mini is deliberately small. Before proposing a new feature, check that it aligns with:
-
-- **Local-first**: no external service dependencies
-- **Zero-dep core**: stdlib + FastAPI/Click/httpx only
-- **Single-file DB**: SQLite, nothing else
-- **LLM-ready output**: search returns message objects
-
-If your idea requires adding heavy dependencies or external services, it may be a better fit for the broader KnowB ecosystem rather than X-Poser Mini core.
+If you add automated tests or linting, include the commands in `README.md` and update this guide.
 
 ## Agentic Contributors
 
-If you are a code agent (Copilot, Cursor, Oz, Claude Code, etc.), follow these rules on top of everything above.
+Codex and other code agents are welcome collaborators on this project. If you are contributing as a code agent, follow these rules on top of everything above:
 
-### Formatting
-
-- No em dashes. Use `--` or rephrase the sentence
-- No smart/curly quotes. ASCII only in code, comments, docstrings, and docs
-- No trailing whitespace or mixed indentation
-
-### Code Discipline
-
-- Do not add dependencies. X-Poser Mini is zero-dep core (stdlib + FastAPI/Click/httpx). If you think you need one, stop and ask
-- Do not create new files. X-Poser Mini is deliberately small. Extend existing modules unless explicitly told otherwise
-- Do not refactor module boundaries. Each module is self-contained by design
-- Every module must keep its docstring header (purpose, interface, deps, extension points)
-- Use `trace.py` for logging, never `print()` or stdlib `logging`
-- No `# type: ignore` or `# noqa` without an inline explanation
-
-### PR Discipline
-
-- No placeholder/TODO comments in submitted code
-- Every new behavior needs a test
-- Run the full suite before submitting: `uv run ruff check src/ tests/ && uv run ruff format --check src/ tests/ && uv run pytest`
-- Conventional commit messages (`feat:`, `fix:`, `chore:`, `docs:`)
-- One concern per PR. Do not bundle unrelated changes
-
-### API Contract
-
-- Search always returns LLM-ready message objects. Do not break this contract
-- All endpoints live under `/v1`. Do not add routes outside this prefix
-- SQLite only. Do not introduce other storage backends
+- Keep edits tightly scoped to the requested change.
+- Do not add dependencies without a clear reason.
+- Do not introduce unrelated refactors.
+- Do not commit secrets or real `.env` values.
+- Prefer ASCII in code, comments, and docs.
+- Avoid placeholder TODO comments in submitted code.
+- Preserve the workshop/demo nature of the project.
 
 ## Reporting Issues
 
-Use the [GitHub issue templates](https://github.com/knowb-ai/X-Poser Mini/issues/new/choose) for bug reports and feature requests.
+When reporting a bug, include:
+
+- What claim or input was used.
+- Whether API keys were configured.
+- The observed behavior.
+- The expected behavior.
+- Any relevant server output with secrets removed.
 
 ## License
 
