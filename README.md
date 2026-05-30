@@ -3,6 +3,11 @@ X-Poser Mini is a small workshop/demo project for a claim-checking smoke test.
 Public story for this release:
 "Paste a claim from X, retrieve web evidence with Tavily, judge it with a Nebius-backed LLM, and display a compact evidence-linked report."
 
+## Origin
+This project was sparked during a builder session where participants were asked to use Tavily, Nebius, and n8n. X-Poser Mini keeps the public release focused on the smallest useful smoke path while preserving the lesson from that session: event-driven builder projects often need fast, reliable code-level integration with cloud services.
+
+Given the frequency of these sessions, tight integrations with services such as search, hosted inference, and workflow automation point toward a reusable Cloud Builder Stack pattern. A clean, simple template for that stack would make it easier to bootstrap projects at workshops and hackathons without spending time or credits on boilerplate, account wiring, and basic scaffolding. That lets timed teams focus on the idea, the user flow, and the proof of value.
+
 ## Release scope
 - Minimal open-source smoke path only.
 - No automatic monitoring or posting to X.
@@ -47,6 +52,7 @@ Optional:
 ## Notes
 - This project is intentionally small and workshop-oriented.
 - The current flow is designed for smoke testing and demo reliability, not production-scale operations.
+- A future reusable Cloud Builder Stack template could package the service wiring, environment setup, and starter app shape for similar event builds.
 
 ## License
 MIT
